@@ -989,6 +989,75 @@ section,
   border: none;
 }
 
+/* Mobile View - Slideshow Layout */
+@media (max-width: 768px) {
+  .horizontal-expand-gallery {
+    display: block; /* Stack items vertically */
+    position: relative;
+    width: 100%; /* Full width */
+    height: 70vh; /* Full viewport height for the slideshow */
+    overflow: hidden; /* Hide overflow for smooth transitions */
+  }
+
+  .hover-item {
+    position: absolute;
+    width: 100%;
+    height: 100%; /* Full screen height */
+    opacity: 0; /* Start hidden */
+    transition: opacity 1s ease-in-out; /* Smooth fade */
+  }
+
+  .hover-item img {
+    width: 100%; /* Ensure the image fills the screen */
+    height: 100%;
+    object-fit: cover; /* Ensure images fit well */
+  }
+
+  /* Slideshow animation */
+  @keyframes slideshow {
+    0% { opacity: 1; }
+    8% { opacity: 1; }
+    17% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* Apply the slideshow effect to each image with delays */
+  .hover-item:nth-child(1) {
+    animation: slideshow 18s infinite;
+  }
+  
+  .hover-item:nth-child(2) {
+    animation: slideshow 18s infinite 2s;
+  }
+
+  .hover-item:nth-child(3) {
+    animation: slideshow 18s infinite 4s;
+  }
+
+  .hover-item:nth-child(4) {
+    animation: slideshow 18s infinite 6s;
+  }
+
+  .hover-item:nth-child(5) {
+    animation: slideshow 18s infinite 8s;
+  }
+
+  .hover-item:nth-child(6) {
+    animation: slideshow 18s infinite 10s;
+  }
+
+  .hover-item:nth-child(7) {
+    animation: slideshow 18s infinite 12s;
+  }
+
+  .hover-item:nth-child(8) {
+    animation: slideshow 18s infinite 14s;
+  }
+
+  .hover-item:nth-child(9) {
+    animation: slideshow 18s infinite 16s;
+  }
+}
 
 
 
