@@ -27,6 +27,15 @@
   }
   mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 
+  //  Prevent right click on video
+  document.addEventListener('contextmenu', function(e) {
+    if (e.target.nodeName === 'VIDEO') {
+      e.preventDefault();
+    }
+  }, false);
+
+
+
   /**
    * Hide mobile nav on same-page/hash links
    */
@@ -211,6 +220,61 @@
   }
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
+
+  // Message sending
+  document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the default form submission
+
+    // Show the loading message
+    document.querySelector('.loading').style.display = 'block';
+
+    // Disable the submit button to prevent multiple submissions
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+
+    // Send the form data using Fetch API
+    fetch(this.action, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(Object.fromEntries(new FormData(this)))  // Convert form data to JSON
+    })
+    .then(response => response.json())  // Parse JSON response
+    .then(data => {
+        if (data.success) {
+            // Hide loading message and show success message
+            document.querySelector('.loading').style.display = 'none';
+            document.querySelector('.error-message').style.display = 'none';
+            document.querySelector('.sent-message').innerText = 'Žinutė išsiųsta. Susisieksime artimiausiu metu!';
+            document.querySelector('.sent-message').style.display = 'block';
+
+            // Clear the form fields
+            document.getElementById('contact-form').reset();
+            // Reset hCaptcha
+            hcaptcha.reset();  // <-- Reset hCaptcha here
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);  // 5000 ms = 5 seconds
+
+            
+        } else {
+            throw new Error('Form submission failed');
+        }
+        })
+        .catch(error => {
+            console.error('Submission error:', error);
+            document.querySelector('.loading').style.display = 'none';
+            document.querySelector('.error-message').innerText = 'Kilo sunkumų išsiunčiant Jūsų žinutę. Patikrinkite ar pažymėjote "Aš esu žmogus" arba kreipkitės aukščiau nurodytais kontaktais.';
+            document.querySelector('.error-message').style.display = 'block';
+        })
+        .finally(() => {
+            // Re-enable the submit button after processing
+            submitButton.disabled = false;
+        });
+    });
 
 
   

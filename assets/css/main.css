@@ -546,7 +546,7 @@ section,
 .section {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 60px 0;
+  padding: 10px 0;
   scroll-margin-top: 80px;
   overflow: clip;
 }
@@ -563,9 +563,9 @@ section,
 # Global Section Titles
 --------------------------------------------------------------*/
 .section-title {
-  margin-top: 60px;
+  margin-top: 30px;
   text-align: center;
-  padding-bottom: 60px;
+  padding-bottom: 30px;
   position: relative;
 }
 
@@ -680,7 +680,7 @@ section,
 
 .about .profile-img img {
   margin-top: 40px;
-  margin-left: 40px;
+  margin-left: 35px;
   margin-bottom: 40px;
   position: relative;
   z-index: 1;
@@ -962,7 +962,7 @@ section,
 
 .hover-item {
   width: 200px; /* Initial narrow width */
-  height: 800px; /* Fixed height for vertical images */
+  height: 650px; /* Fixed height for vertical images */
   overflow: hidden;
   transition: width 0.4s ease-in-out; /* Smooth horizontal expansion */
 }
@@ -995,15 +995,16 @@ section,
     display: block; /* Stack items vertically */
     position: relative;
     width: 100%; /* Full width */
-    height: 70vh; /* Full viewport height for the slideshow */
+    height: 60vh; /* Full viewport height for the slideshow */
     overflow: hidden; /* Hide overflow for smooth transitions */
   }
 
   .hover-item {
     position: absolute;
     width: 100%;
-    height: 100%; /* Full screen height */
+    height: 60vh; /* Full screen height */
     opacity: 0; /* Start hidden */
+    z-index: 0; /* Set default z-index to 0 */
     transition: opacity 1s ease-in-out; /* Smooth fade */
   }
 
@@ -1015,10 +1016,10 @@ section,
 
   /* Slideshow animation */
   @keyframes slideshow {
-    0% { opacity: 1; }
-    8% { opacity: 1; }
-    17% { opacity: 0; }
-    100% { opacity: 0; }
+    0% { opacity: 1; z-index: 1; } /* Visible and clickable */
+    8% { opacity: 1; z-index: 1; } /* Stay visible */
+    17% { opacity: 0; z-index: 0; } /* Fade out and remove from the top layer */
+    100% { opacity: 0; z-index: 0; } /* Keep hidden */
   }
 
   /* Apply the slideshow effect to each image with delays */
@@ -1201,7 +1202,8 @@ section,
   /* Reduced padding */
   
   /* Optional: Limit the width */
-  margin: auto;
+  margin-right: 24,8px;
+  margin-left: 24,8px;
   /* Center the form horizontally */
 
 
@@ -1337,9 +1339,85 @@ section,
   background-color: black; 
 } 
 
+/* Galleries style */
 
 
+.masonry-gallery {
+  column-count: 4; /* Five columns */
+  column-gap: 15px;
+}
 
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 15px;
+  position: relative;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease-in-out; /* Smooth transition for image zoom on hover */
+}
+
+.masonry-item:hover img {
+  /* transform: scale(1.05);  */
+  filter: brightness(0.5);
+}
+
+.masonry-item:hover .portfolio-info {
+  opacity: 1; /* Show the preview icon on hover */
+}
+
+.portfolio-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-info i {
+  font-size: 26px;
+  color: #fff;
+
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.portfolio-info i:hover {
+  color: var(--accent)           
+}
+
+/* Parallax effect for background */
+body {
+  background: url('background-image.jpg') no-repeat fixed;
+  background-size: cover;
+}
+
+@media (max-width: 768px) {
+
+  .masonry-gallery {
+    column-count: 3; /* Five columns */
+    column-gap: 5px;
+  
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 5px;
+    position: relative;
+    
+  }
+
+  .portfolio-info {
+    display: none;
+
+  }
+
+}
 
 /*--------------------------------------------------------------
 # Service Details Section
