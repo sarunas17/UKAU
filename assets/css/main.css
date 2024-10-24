@@ -1,7 +1,6 @@
 /* Fonts */
 :root {
-  --default-font: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Poppins", sans-serif;
+  --default-font: "Poppins", sans-serif;
   --nav-font: "Poppins", sans-serif;
 }
 
@@ -29,12 +28,7 @@
   /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff;
   /* Used as the background color for mobile navigation menu */
-  --nav-dropdown-background-color: #ffffff;
-  /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
-  --nav-dropdown-color: #898989;
-  /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #b8a07e;
-  /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -131,6 +125,7 @@ img {
   width: 100%;
 }
 
+/* Base styles for the header */
 .header-portfolio {
   align-items: center;
   justify-content: space-between;
@@ -140,14 +135,21 @@ img {
   --nav-color: rgba(255, 255, 255, 0.6);
   --nav-hover-color: #ffffff;
   color: var(--default-color);
-  background-color:  rgba(82, 78, 68, 0.8);;
+  background-color: rgba(82, 78, 68, 0.8); /* Semi-transparent background */
   padding: 10px;
-  transition: all 0.5s;
   z-index: 997;
   position: fixed;
   top: 0;
   width: 100%;
+  transition: opacity 0.5s ease, visibility 0.5s ease; /* Smooth transitions for visibility */
 }
+
+/* When the header is hidden */
+.header-portfolio.hidden {
+  opacity: 0;           /* Make the header fade out */
+  visibility: hidden;    /* Ensure the header is non-interactive when hidden */
+}
+
 
 .header .logo {
   line-height: 1;
@@ -166,14 +168,16 @@ img {
   color: var(--accent-color) 
 }
 
-
-  
-.scrolled .header {
-  box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
-}
-
 .scrolled .header {
   --background-color: rgba(82, 78, 68, 0.8);
+  box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
+  --default-color: #fff;
+  transition: 0.3s;
+}
+
+.scrolled .header-portfolio {
+  --background-color: rgba(82, 78, 68, 0.8);
+  box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
   --default-color: #fff;
   transition: 0.3s;
 }
@@ -287,26 +291,65 @@ img {
 
 /* Hero Section */
 .hero {
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
+  width: 100%;
+  min-height: 100vh;
   position: relative;
+  padding: 80px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
 }
 
 .hero img {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top;
+  /* Adjusts the visible part of the image */
   z-index: 1;
-  opacity: 0.6;
 }
+
+
+.hero:before {
+  content: "";
+  background: color-mix(in srgb, var(--background-color), transparent 80%);
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.hero h2 {
+  margin: 0;
+  font-size: 64px;
+  font-weight: 700;
+}
+
+
+.hero p span {
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.hero .social-links {
+  margin-top: 25px;
+}
+
+.hero .social-links a {
+  font-size: 24px;
+  display: inline-block;
+  color: color-mix(in srgb, var(--default-color), transparent 50%);
+  line-height: 1;
+  margin-right: 20px;
+  transition: 0.3s;
+}
+
+.hero .social-links a:hover {
+  color: var(--accent-color);
+}
+
 
 .hero .container {
   position: relative;
@@ -327,7 +370,7 @@ img {
 
 
 .hero p {
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 300;
   margin-bottom: 20px;
   text-align: left;
@@ -339,18 +382,7 @@ img {
   font-weight: 400;
 }
 
-.hero .social-links {
-  display: flex;
-  justify-content: flex-start;
-  /* Align social icons to the left */
-  gap: 10px;
-  /* Add spacing between icons */
-  margin-top: 20px;
-}
 
-.hero .social-links a:hover {
-  color: var(--heading-color);
-}
 
 @media (max-width: 768px) {
   .hero .main-name {
@@ -377,7 +409,7 @@ img {
 
  .php-email-form .sent-message {
   display: none;
-  color: var(--heading-font);
+  color: var(--accent-color);
   background: #ffffff;
   text-align: center;
   padding: 15px;
@@ -563,7 +595,7 @@ section,
 # Global Section Titles
 --------------------------------------------------------------*/
 .section-title {
-  margin-top: 30px;
+  margin-top: 70px;
   text-align: center;
   padding-bottom: 30px;
   position: relative;
@@ -579,96 +611,7 @@ section,
   margin-bottom: 0;
 }
 
-/*--------------------------------------------------------------
-# Hero Section
---------------------------------------------------------------*/
-.hero {
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-  padding: 80px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.hero img {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-  /* Adjusts the visible part of the image */
-  z-index: 1;
-}
-
-
-.hero:before {
-  content: "";
-  background: color-mix(in srgb, var(--background-color), transparent 80%);
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-
-
-
-.col-lg-7.content {
-  text-align: justify;
-  /* Center the text */
-  max-width: 700px;
-  /* Control the width of the text */
-  margin: 180px auto 0 auto;
-  /* Center the block within the column */
-  line-height: 1.9;
-  /* Optional: Adjust line spacing for readability */
-}
-
-
-.hero h2 {
-  margin: 0;
-  font-size: 64px;
-  font-weight: 700;
-}
-
-.hero p {
-  margin: 5px 0 0 0;
-  font-size: 26px;
-}
-
-.hero p span {
-  letter-spacing: 1px;
-  border-bottom: 2px solid var(--accent-color);
-}
-
-.hero .social-links {
-  margin-top: 25px;
-}
-
-.hero .social-links a {
-  font-size: 24px;
-  display: inline-block;
-  color: color-mix(in srgb, var(--default-color), transparent 50%);
-  line-height: 1;
-  margin-right: 20px;
-  transition: 0.3s;
-}
-
-.hero .social-links a:hover {
-  color: var(--accent-color);
-}
-
-@media (max-width: 768px) {
-  .hero h2 {
-    font-size: 32px;
-  }
-
-  .hero p {
-    font-size: 20px;
-  }
-}
 
 /*--------------------------------------------------------------
 # About Section
@@ -686,34 +629,11 @@ section,
   z-index: 1;
 }
 
-.about .content h3 {
-  font-size: 1.75rem;
-  font-weight: 700;
-}
-
-.about .content .fst-italic {
-  color: color-mix(in srgb, var(--default-color), var(--contrast-color) 50%);
-}
-
-.about .content ul {
-  list-style: none;
-  padding: 0;
-}
-
-.about .content ul li {
-  padding: 10px 0 0 0;
-  display: flex;
-}
-
-.about .content ul i {
-  color: var(--accent-color);
-  margin-right: 0.5rem;
-  line-height: 1.2;
-  font-size: 1.25rem;
-}
-
-.about .content p:last-child {
-  margin-bottom: 0;
+.col-lg-7.content {
+  text-align: justify;
+  max-width: 660px;
+  margin: 180px auto 0 auto;
+  line-height: 1.9;
 }
 
 /*--------------------------------------------------------------
@@ -790,9 +710,6 @@ section,
   transition: 0.3s;
 }
 
-.services .service-item:hover .icon i {
-  color: var(--accent-color);
-}
 
 .services .service-item .title {
   color: var(--heading-color);
@@ -808,22 +725,8 @@ section,
   margin-bottom: 10px;
 }
 
-.services .service-item .readmore {
-  display: flex;
-  align-items: center;
-  color: color-mix(in srgb, var(--default-color), transparent 50%);
-  transition: 0.3s;
-  font-weight: 700;
-  font-size: 14px;
-}
 
-.services .service-item .readmore i {
-  margin-left: 8px;
-}
-
-.services .service-item:hover .title,
-.services .service-item:hover .readmore,
-.services .service-item:hover .icon i {
+.services .service-item:hover .title{
   color: var(--accent-color);
 }
 
@@ -854,102 +757,14 @@ section,
 .portfolio .portfolio-filters li.filter-active {
   color: var(--accent-color);
   border-bottom: 3px solid;
-  border-image: linear-gradient(to right, #b8a07e, #e7e2db); /* Use your preferred gradient */
+  border-image: linear-gradient(to right, #b8a07e, #e7e2db); 
   border-image-slice: 1;
   padding-bottom: 3px;
  
 }
+/* ----------------------------------------------------------- */
+/* Horizontal expand gallery */
 
-
-
-
-
-.portfolio .portfolio-filters li:first-child {
-  margin-left: 0;
-}
-
-.portfolio .portfolio-filters li:last-child {
-  margin-right: 0;
-}
-
-@media (max-width: 575px) {
-  .portfolio .portfolio-filters li {
-    font-size: 14px;
-    margin: 0 5px;
-  }
-}
-
-.portfolio .portfolio-content {
-  position: relative;
-  overflow: hidden;
-}
-
-.portfolio .portfolio-content img {
-  transition: 0.3s;
-}
-
-.portfolio .portfolio-content .portfolio-info {
-  opacity: 0;
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  transition: all ease-in-out 0.3s;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 15px;
-}
-
-.portfolio .portfolio-content .portfolio-info h4 {
-  font-size: 14px;
-  padding: 5px 10px;
-  font-weight: 400;
-  color: #ffffff;
-  display: inline-block;
-  background-color: var(--accent-color);
-}
-
-.portfolio .portfolio-content .portfolio-info p {
-  position: absolute;
-  bottom: 10px;
-  text-align: center;
-  display: inline-block;
-  left: 0;
-  right: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.portfolio .portfolio-content .portfolio-info .preview-link,
-.portfolio .portfolio-content .portfolio-info .details-link {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 26px;
-  color: #fff;
-  transition: 0.3s;
-  line-height: 1.2;
-
-}
-
-.portfolio .portfolio-content .portfolio-info .preview-link:hover,
-.portfolio .portfolio-content .portfolio-info .details-link:hover {
-  color: var(--accent-color);
-}
-
-.portfolio .portfolio-content .portfolio-info .details-link {
-  left: 50%;
-  font-size: 34px;
-  line-height: 0;
-}
-
-.portfolio .portfolio-content:hover .portfolio-info {
-  opacity: 1;
-}
-
-.portfolio .portfolio-content:hover img {
-  transform: scale(1.1);
-}
 
 
 .horizontal-expand-gallery {
@@ -978,9 +793,6 @@ section,
   width: 900px; /* Expanded width on hover */
 }
 
-.hover-item:hover img {
-  transform: scale(1.05); /* Optional zoom effect */
-}
 
 /* No spaces between items */
 .horizontal-expand-gallery .hover-item {
@@ -989,7 +801,7 @@ section,
   border: none;
 }
 
-/* Mobile View - Slideshow Layout */
+/* /* Mobile View - Slideshow Layout */
 @media (max-width: 768px) {
   .horizontal-expand-gallery {
     display: block; /* Stack items vertically */
@@ -997,6 +809,7 @@ section,
     width: 100%; /* Full width */
     height: 60vh; /* Full viewport height for the slideshow */
     overflow: hidden; /* Hide overflow for smooth transitions */
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
   }
 
   .hover-item {
@@ -1005,7 +818,7 @@ section,
     height: 60vh; /* Full screen height */
     opacity: 0; /* Start hidden */
     z-index: 0; /* Set default z-index to 0 */
-    transition: opacity 1s ease-in-out; /* Smooth fade */
+    
   }
 
   .hover-item img {
@@ -1060,98 +873,8 @@ section,
   }
 }
 
+ 
 
-
-
-
-/*--------------------------------------------------------------
-# Pricing Section
---------------------------------------------------------------*/
-.pricing .pricing-item {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 96%);
-  padding: 40px 40px;
-  height: 100%;
-  border-radius: 15px;
-}
-
-.pricing h3 {
-  font-weight: 600;
-  margin-bottom: 15px;
-  font-size: 20px;
-}
-
-
-
-.pricing .description {
-  font-size: 14px;
-}
-
-.pricing .cta-btn {
-  border: 1px solid var(--default-color);
-  color: var(--default-color);
-  display: block;
-  text-align: center;
-  padding: 10px 35px;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 500;
-  font-family: var(--heading-font);
-  transition: 0.3s;
-  margin-top: 20px;
-  margin-bottom: 6px;
-}
-
-.pricing .cta-btn:hover {
-  background: var(--accent-color);
-  color: var(--contrast-color);
-  border-color: var(--accent-color);
-}
-
-
-
-.pricing .featured {
-  position: relative;
-}
-
-.pricing .featured .popular {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background-color: var(--accent-color);
-  color: var(--contrast-color);
-  padding: 4px 15px 6px 15px;
-  margin: 0;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.pricing .featured .cta-btn {
-  background: var(--accent-color);
-  color: var(--contrast-color);
-  border-color: var(--accent-color);
-}
-
-@media (max-width: 992px) {
-  .pricing .box {
-    max-width: 60%;
-    margin: 0 auto 30px auto;
-  }
-}
-
-@media (max-width: 767px) {
-  .pricing .box {
-    max-width: 80%;
-    margin: 0 auto 30px auto;
-  }
-}
-
-@media (max-width: 420px) {
-  .pricing .box {
-    max-width: 100%;
-    margin: 0 auto 30px auto;
-  }
-}
 
 /*--------------------------------------------------------------
 # Contact Section
@@ -1205,8 +928,12 @@ section,
   margin-right: 24,8px;
   margin-left: 24,8px;
   /* Center the form horizontally */
+}
 
-
+.contact .php-email-form .h-captcha{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 }
 
@@ -1218,6 +945,7 @@ section,
 
 .contact .php-email-form input[type=text],
 .contact .php-email-form input[type=email],
+.contact .php-email-form input[type=phone],
 .contact .php-email-form textarea {
   font-size: 14px;
   padding: 10px 15px;
@@ -1230,98 +958,41 @@ section,
 
 .contact .php-email-form input[type=text]:focus,
 .contact .php-email-form input[type=email]:focus,
+.contact .php-email-form input[type=phone]:focus,
 .contact .php-email-form textarea:focus {
   border-color: var(--accent-color);
 }
 
 .contact .php-email-form input[type=text]::placeholder,
 .contact .php-email-form input[type=email]::placeholder,
+.contact .php-email-form input[type=phone]::placeholder,
 .contact .php-email-form textarea::placeholder {
   color: color-mix(in srgb, var(--default-color), transparent 70%);
 }
 
 .contact .php-email-form button[type=submit] {
-  color: var(--contrast-color);
-  background: var(--accent-color);
+  color: var(--contrast-color); 
+  background: var(--accent-color); 
   border: 0;
-  padding: 10px 30px;
-  transition: 0.4s;
-  border-radius: 50px;
+  padding: 12px 35px; 
+  font-size: 16px; 
+  border-radius: 50px; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+  transition: background 0.4s, transform 0.3s, box-shadow 0.3s; 
+  cursor: pointer; 
 }
 
 .contact .php-email-form button[type=submit]:hover {
-  background: color-mix(in srgb, var(--accent-color), transparent 20%);
+  background: color-mix(in srgb, var(--accent-color), transparent 20%); 
+  transform: translateY(-3px); 
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); 
 }
+
 
 /*--------------------------------------------------------------
 # Portfolio Details Section
 --------------------------------------------------------------*/
-.portfolio-details .portfolio-details-slider img {
-  width: 100%;
-}
 
-.portfolio-details .portfolio-details-slider .swiper-pagination {
-  margin-top: 20px;
-  position: relative;
-}
-
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background-color: color-mix(in srgb, var(--default-color), transparent 85%);
-  opacity: 1;
-}
-
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: var(--accent-color);
-}
-
-.portfolio-details .portfolio-info {
-  background-color: var(--surface-color);
-  padding: 30px;
-  box-shadow: 0px 0 30px rgba(0, 0, 0, 0.1);
-}
-
-.portfolio-details .portfolio-info h3 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
-}
-
-.portfolio-details .portfolio-info ul {
-  list-style: none;
-  padding: 0;
-  font-size: 15px;
-}
-
-.portfolio-details .portfolio-info ul li+li {
-  margin-top: 10px;
-}
-
-.portfolio-details .portfolio-description {
-  padding-top: 30px;
-}
-
-.portfolio-details .portfolio-description h2 {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-.portfolio-details .portfolio-description p {
-  padding: 0;
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
-
-}
-
-.portfolio-content img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover; /* Ensures the image covers the container */
-  object-position: center /* Ensures the top part of the image is visible */
-}
 
 /* .portfolio-content video {
   width: 100%;
@@ -1330,17 +1001,31 @@ section,
   object-position: center 
 } */
 
-.portfolio-content video{
-  width: 100%; 
+
+/* General video styling for large screens */
+.portfolio-item video {
+  width: 100%;
   max-width: 350px; 
   height: 623px; 
-  overflow: hidden; 
-  position: relative; 
-  background-color: black; 
-} 
+  overflow: hidden;
+  background-color: black;
+}
+
+
+/* Mobile view: 2 videos per row */
+@media (max-width: 768px) {
+  .portfolio-item  {
+    width: calc(50% - 15px); 
+    margin-bottom: 15px; 
+  }
+
+  .portfolio-item video {
+    width: 100%; 
+    height: auto; 
+  }
+}
 
 /* Galleries style */
-
 
 .masonry-gallery {
   column-count: 4; /* Five columns */
@@ -1393,7 +1078,6 @@ section,
 
 /* Parallax effect for background */
 body {
-  background: url('background-image.jpg') no-repeat fixed;
   background-size: cover;
 }
 
@@ -1419,143 +1103,13 @@ body {
 
 }
 
-/*--------------------------------------------------------------
-# Service Details Section
---------------------------------------------------------------*/
-.service-details .service-box {
-  background-color: var(--surface-color);
-  padding: 20px;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
-}
+/* //footer // */
 
-.service-details .service-box+.service-box {
-  margin-top: 30px;
-}
-
-.service-details .service-box h4 {
-  font-size: 20px;
-  font-weight: 700;
-  border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 92%);
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-}
-
-.service-details .services-list {
-  background-color: var(--surface-color);
-}
-
-.service-details .services-list a {
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
-  background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+footer {
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 12px 15px;
-  margin-top: 15px;
-  transition: 0.3s;
-}
-
-.service-details .services-list a:first-child {
-  margin-top: 0;
-}
-
-.service-details .services-list a i {
-  font-size: 16px;
-  margin-right: 8px;
-  color: var(--accent-color);
-}
-
-.service-details .services-list a.active {
-  color: var(--contrast-color);
-  background-color: var(--accent-color);
-}
-
-.service-details .services-list a.active i {
-  color: var(--contrast-color);
-}
-
-.service-details .services-list a:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
-  color: var(--accent-color);
-}
-
-.service-details .download-catalog a {
-  color: var(--default-color);
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  transition: 0.3s;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-}
-
-.service-details .download-catalog a:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-.service-details .download-catalog a:last-child {
-  padding-bottom: 0;
-}
-
-.service-details .download-catalog a i {
-  font-size: 24px;
-  margin-right: 8px;
-  color: var(--accent-color);
-}
-
-.service-details .download-catalog a:hover {
-  color: var(--accent-color);
-}
-
-.service-details .help-box {
-  background-color: var(--accent-color);
-  color: var(--contrast-color);
-  margin-top: 30px;
-  padding: 30px 15px;
-}
-
-.service-details .help-box .help-icon {
-  font-size: 48px;
-}
-
-.service-details .help-box h4,
-.service-details .help-box a {
-  color: var(--contrast-color);
-}
-
-.service-details .services-img {
-  margin-bottom: 20px;
-}
-
-.service-details h3 {
-  font-size: 26px;
-  font-weight: 700;
-}
-
-.service-details p {
+  padding: 20px; 
   font-size: 15px;
-}
-
-.service-details ul {
-  list-style: none;
-  padding: 0;
-  font-size: 15px;
-}
-
-.service-details ul li {
-  padding: 5px 0;
-  display: flex;
-  align-items: center;
-}
-
-.service-details ul i {
-  font-size: 20px;
-  margin-right: 8px;
-  color: var(--accent-color);
-}
-
-
-.loading,
-.sent-message,
-.error-message {
-  display: none;
+  background-color: #f1f1f1
 }
