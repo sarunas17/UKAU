@@ -509,7 +509,10 @@ img {
 .scroll-top:hover {
   background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
   color: var(--contrast-color);
+  transform: translateY(-3px); 
 }
+
+
 
 .scroll-top.active {
   visibility: visible;
@@ -619,14 +622,18 @@ section,
 .about .profile-img {
   border: 20px solid var(--accent-color);
   padding: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
+
+
 .about .profile-img img {
-  margin-top: 40px;
-  margin-left: 35px;
-  margin-bottom: 40px;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-bottom: 30px;
   position: relative;
   z-index: 1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .col-lg-7.content {
@@ -635,6 +642,7 @@ section,
   margin: 180px auto 0 auto;
   line-height: 1.9;
 }
+
 
 /*--------------------------------------------------------------
 # Services Section
@@ -806,6 +814,7 @@ section,
   .horizontal-expand-gallery {
     display: block; /* Stack items vertically */
     position: relative;
+    border-radius: 5px;
     width: 100%; /* Full width */
     height: 60vh; /* Full viewport height for the slideshow */
     overflow: hidden; /* Hide overflow for smooth transitions */
@@ -818,6 +827,8 @@ section,
     height: 60vh; /* Full screen height */
     opacity: 0; /* Start hidden */
     z-index: 0; /* Set default z-index to 0 */
+    pointer-events: none; /* Disables clicks on mobile devices */
+    cursor: default;      /* Changes cursor to default on mobile */
     
   }
 
@@ -825,6 +836,7 @@ section,
     width: 100%; /* Ensure the image fills the screen */
     height: 100%;
     object-fit: cover; /* Ensure images fit well */
+ 
   }
 
   /* Slideshow animation */
@@ -1109,6 +1121,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   padding: 20px; 
   font-size: 15px;
   background-color: #f1f1f1
