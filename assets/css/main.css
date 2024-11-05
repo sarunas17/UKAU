@@ -750,6 +750,7 @@ section,
 }
 
 .portfolio .portfolio-filters li {
+  height: 25px;
   cursor: pointer;
   display: inline-block;
   padding: 0;
@@ -798,7 +799,7 @@ section,
 }
 
 .hover-item:hover {
-  width: 900px; /* Expanded width on hover */
+  width: 700px; /* Expanded width on hover */
 }
 
 
@@ -936,17 +937,13 @@ section,
   padding: 30px;
   /* Reduced padding */
   
-  /* Optional: Limit the width */
-  margin-right: 24,8px;
-  margin-left: 24,8px;
-  /* Center the form horizontally */
+ 
 }
 
 .contact .php-email-form .h-captcha{
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 @media (max-width: 575px) {
@@ -965,7 +962,7 @@ section,
   border-radius: 0;
   color: var(--default-color);
   background-color: color-mix(in srgb, var(--background-color), transparent 50%);
-  border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+  border-color: var(--accent-color);
 }
 
 .contact .php-email-form input[type=text]:focus,
@@ -973,13 +970,16 @@ section,
 .contact .php-email-form input[type=phone]:focus,
 .contact .php-email-form textarea:focus {
   border-color: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color), 
+  0 0 12px var(--accent-color); 
+  transform: scale(1.02); 
 }
 
 .contact .php-email-form input[type=text]::placeholder,
 .contact .php-email-form input[type=email]::placeholder,
 .contact .php-email-form input[type=phone]::placeholder,
 .contact .php-email-form textarea::placeholder {
-  color: color-mix(in srgb, var(--default-color), transparent 70%);
+  color: color-mix(in srgb, var(--default-color), transparent 60%);
 }
 
 .contact .php-email-form button[type=submit] {
@@ -1096,7 +1096,7 @@ body {
 @media (max-width: 768px) {
 
   .masonry-gallery {
-    column-count: 3; /* Five columns */
+    column-count: 2; /* Five columns */
     column-gap: 5px;
   
   }

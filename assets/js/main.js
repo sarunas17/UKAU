@@ -202,7 +202,8 @@
             // Hide loading message and show success message
             document.querySelector('.loading').style.display = 'none';
             document.querySelector('.error-message').style.display = 'none';
-            document.querySelector('.sent-message').innerText = 'Žinutė išsiųsta. Susisieksime su Jumis artimiausiu metu!';
+            const successMessage = document.querySelector('.sent-message');
+            successMessage.innerText = 'Žinutė išsiųsta. Susisieksime su Jumis artimiausiu metu!';
             document.querySelector('.sent-message').style.display = 'block';
 
             // Clear the form fields
@@ -210,10 +211,10 @@
             // Reset hCaptcha
             hcaptcha.reset();  // <-- Reset hCaptcha here
 
-            // Hide success message after 5 seconds
+            // Hide success message after 7 seconds
             setTimeout(() => {
                 successMessage.style.display = 'none';
-            }, 5000);  // 5000 ms = 5 seconds
+            }, 7000);  // 5000 ms = 5 seconds
 
             
         } else {
